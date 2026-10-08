@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon_192.png">
 <link rel="apple-touch-icon" href="images/favicon_180.png">
-<link rel="stylesheet" href="style.css?v=115">
+<link rel="stylesheet" href="style.css?v=118">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -75,7 +75,7 @@
 </header>
 <main>
 
-<div class="star-photo photo" style="background-image:url(images/inspo_wine_07.jpg);" role="img" aria-label="Design inspiration: a vaulted wine cellar"><span class="photo-tag">Design Inspiration</span></div>
+<div data-bg="images/inspo_wine_07.webp" class="star-photo photo" role="img" aria-label="Design inspiration: a vaulted wine cellar"><span class="photo-tag">Design Inspiration</span></div>
 
 <div class="page-intro">
   <div class="wrap">
@@ -99,7 +99,7 @@
   </div>
 </section>
 
-<div class="photo-band photo" style="background-image:url(images/inspo_wine_03.jpg);" role="img" aria-label="Design inspiration: a wine room"><span class="photo-tag">Design Inspiration</span></div>
+<div data-bg="images/inspo_wine_03.webp" class="photo-band photo" role="img" aria-label="Design inspiration: a wine room"><span class="photo-tag">Design Inspiration</span></div>
 
 <section class="alt">
   <div class="wrap">
@@ -120,7 +120,7 @@
       <p>A wine room is often part of a larger project, planned alongside a kitchen, a cinema room, or a complete interior renovation, so the whole home shares the same level of craft.</p>
       <a class="btn btn-dark" href="craft.html">Explore Areas of Craft</a>
     </div>
-    <div class="why-photo photo" style="background-image:url(images/inspo_wine_05.jpg);" role="img" aria-label="Design inspiration: a wine room"><span class="photo-tag">Design Inspiration</span></div>
+    <div data-bg="images/inspo_wine_05.webp" class="why-photo photo" role="img" aria-label="Design inspiration: a wine room"><span class="photo-tag">Design Inspiration</span></div>
     </div>
   </div>
 </section>
@@ -146,10 +146,10 @@
       <p>These are reference images, not completed Renaissance projects. They show styles we can create for you and are here to spark ideas for your own wine room.</p>
     </div>
     <div class="inspo-masonry inspo-compact">
-      <a class="inspo-item inspo-link" href="images/inspo_wine_01.jpg"><img src="images/inspo_wine_01.jpg" width="800" height="1200" alt="Design inspiration: wine room reference image 1" loading="lazy" decoding="async"></a>
-      <a class="inspo-item inspo-link" href="images/inspo_wine_02.jpg"><img src="images/inspo_wine_02.jpg" width="800" height="1200" alt="Design inspiration: wine room reference image 2" loading="lazy" decoding="async"></a>
-      <a class="inspo-item inspo-link" href="images/inspo_wine_04.jpg"><img src="images/inspo_wine_04.jpg" width="801" height="1200" alt="Design inspiration: wine room reference image 4" loading="lazy" decoding="async"></a>
-      <a class="inspo-item inspo-link" href="images/inspo_wine_06.jpg"><img src="images/inspo_wine_06.jpg" width="895" height="1200" alt="Design inspiration: wine room reference image 6" loading="lazy" decoding="async"></a>
+      <a class="inspo-item inspo-link" href="images/inspo_wine_01.webp"><img src="images/inspo_wine_01.webp" width="800" height="1200" alt="Design inspiration: wine room reference image 1" loading="lazy" decoding="async"></a>
+      <a class="inspo-item inspo-link" href="images/inspo_wine_02.webp"><img src="images/inspo_wine_02.webp" width="800" height="1200" alt="Design inspiration: wine room reference image 2" loading="lazy" decoding="async"></a>
+      <a class="inspo-item inspo-link" href="images/inspo_wine_04.webp"><img src="images/inspo_wine_04.webp" width="801" height="1200" alt="Design inspiration: wine room reference image 4" loading="lazy" decoding="async"></a>
+      <a class="inspo-item inspo-link" href="images/inspo_wine_06.webp"><img src="images/inspo_wine_06.webp" width="895" height="1200" alt="Design inspiration: wine room reference image 6" loading="lazy" decoding="async"></a>
     </div>
   </div>
 </section>
@@ -222,6 +222,25 @@
   document.addEventListener('keydown',function(e){ if(lb.hidden) return; if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') show(cur-1); else if(e.key==='ArrowRight') show(cur+1); });
   var sx=null; lb.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; },{passive:true});
   lb.addEventListener('touchend',function(e){ if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) show(cur+(dx<0?1:-1)); sx=null; });
+})();
+</script>
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('[data-bg]'));
+  if(!els.length) return;
+  var small=window.matchMedia&&window.matchMedia('(max-width:700px)').matches;
+  function load(el){
+    var u=(small&&el.getAttribute('data-bg-m'))||el.getAttribute('data-bg');
+    if(el.hasAttribute('data-fit-blur')){ el.style.setProperty('--fit-img','url('+u+')'); el.style.setProperty('--fit-blur','url('+el.getAttribute('data-fit-blur')+')'); }
+    el.style.backgroundImage='url('+u+')';
+    el.removeAttribute('data-bg');
+  }
+  var near=window.innerHeight*1.5, rest=[];
+  els.forEach(function(el){ if(el.getBoundingClientRect().top<near) load(el); else rest.push(el); });
+  if(!rest.length) return;
+  if(!('IntersectionObserver' in window)){ rest.forEach(load); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ load(e.target); io.unobserve(e.target); } }); },{rootMargin:'900px 0px'});
+  rest.forEach(function(el){ io.observe(el); });
 })();
 </script>
 </body>

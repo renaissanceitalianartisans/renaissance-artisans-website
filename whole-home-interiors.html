@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon_192.png">
 <link rel="apple-touch-icon" href="images/favicon_180.png">
-<link rel="stylesheet" href="style.css?v=113">
+<link rel="stylesheet" href="style.css?v=118">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -75,7 +75,7 @@
 </header>
 <main>
 
-<div class="star-photo photo" style="background-image:url(images/hero_courtyard.jpg);" role="img" aria-label="A bright interior with a wood floor, a white ceiling with linear lighting, and a glass courtyard"></div>
+<div data-bg="images/hero_courtyard.webp" data-bg-m="images/hero_courtyard-m.webp" class="star-photo photo" role="img" aria-label="A bright interior with a wood floor, a white ceiling with linear lighting, and a glass courtyard"></div>
 
 <div class="page-intro">
   <div class="wrap">
@@ -98,7 +98,7 @@
   </div>
 </section>
 
-<div class="photo-band photo" style="background-image:url(images/dsc02940.jpg);" role="img" aria-label="A renovated living space with wood floors and a view of the courtyard"></div>
+<div data-bg="images/dsc02940.webp" data-bg-m="images/dsc02940-m.webp" class="photo-band photo" role="img" aria-label="A renovated living space with wood floors and a view of the courtyard"></div>
 
 <section class="alt">
   <div class="wrap">
@@ -107,9 +107,9 @@
       <p>Every renovation begins with a conversation about your home as a whole: how you live in it, how you host in it, and how you want it to feel from room to room. Our in-house design team plans the complete interior from a blank page, or we build from the plans of your own architect or designer. Because every piece is custom made, each room connects naturally to the next.</p>
       <p>For projects that call for construction work, we work with our trusted building partner, or with your own builder.</p>
     </div>
-    <div class="work-grid"><div class="g-item photo wide" style="background-image:url(images/dsc02925.jpg);"></div>
-<div class="g-item photo" style="background-image:url(images/dsc02887.jpg);"></div>
-<div class="g-item photo" style="background-image:url(images/dsc02945.jpg);"></div></div>
+    <div class="work-grid"><div data-bg="images/dsc02925.webp" data-bg-m="images/dsc02925-m.webp" class="g-item photo wide"></div>
+<div data-bg="images/dsc02887.webp" data-bg-m="images/dsc02887-m.webp" class="g-item photo"></div>
+<div data-bg="images/dsc02945.webp" data-bg-m="images/dsc02945-m.webp" class="g-item photo"></div></div>
   </div>
 </section>
 
@@ -121,12 +121,12 @@
       <p>When a whole home is being renovated, the hardest part is often keeping every company, schedule, and decision in step. With Renaissance, one company takes care of the entire interior. Renaissance is based in both Florence and Miami, so we design every room, our team in Florence makes every piece specifically for your home, we bring it to Miami, and our professional installation team puts it all in place. You have one point of contact throughout, and every room is finished to the same standard.</p>
       <p>We take on only a few homes at a time, so your renovation has our full attention and comes together in remarkable time.</p>
     </div>
-    <div class="why-photo photo" style="background-image:url(images/dsc02917.jpg);" role="img" aria-label="A renovated hallway opening onto the courtyard"></div>
+    <div data-bg="images/dsc02917.webp" data-bg-m="images/dsc02917-m.webp" class="why-photo photo" role="img" aria-label="A renovated hallway opening onto the courtyard"></div>
     </div>
   </div>
 </section>
 
-<div class="photo-band slim photo" style="background-image:url(images/dsc02960.jpg);" role="img" aria-label="A renovated living room"></div>
+<div data-bg="images/dsc02960.webp" data-bg-m="images/dsc02960-m.webp" class="photo-band slim photo" role="img" aria-label="A renovated living room"></div>
 
 <section class="alt">
   <div class="wrap">
@@ -195,6 +195,25 @@
   if(!b) return;
   b.addEventListener('click',function(){ var o=h.classList.toggle('menu-open'); b.setAttribute('aria-expanded',o?'true':'false'); });
   h.querySelectorAll('nav.links a').forEach(function(a){ a.addEventListener('click',function(){ h.classList.remove('menu-open'); b.setAttribute('aria-expanded','false'); }); });
+})();
+</script>
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('[data-bg]'));
+  if(!els.length) return;
+  var small=window.matchMedia&&window.matchMedia('(max-width:700px)').matches;
+  function load(el){
+    var u=(small&&el.getAttribute('data-bg-m'))||el.getAttribute('data-bg');
+    if(el.hasAttribute('data-fit-blur')){ el.style.setProperty('--fit-img','url('+u+')'); el.style.setProperty('--fit-blur','url('+el.getAttribute('data-fit-blur')+')'); }
+    el.style.backgroundImage='url('+u+')';
+    el.removeAttribute('data-bg');
+  }
+  var near=window.innerHeight*1.5, rest=[];
+  els.forEach(function(el){ if(el.getBoundingClientRect().top<near) load(el); else rest.push(el); });
+  if(!rest.length) return;
+  if(!('IntersectionObserver' in window)){ rest.forEach(load); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ load(e.target); io.unobserve(e.target); } }); },{rootMargin:'900px 0px'});
+  rest.forEach(function(el){ io.observe(el); });
 })();
 </script>
 </body>

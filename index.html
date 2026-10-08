@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon_192.png">
 <link rel="apple-touch-icon" href="images/favicon_180.png">
-<link rel="stylesheet" href="style.css?v=113">
+<link rel="stylesheet" href="style.css?v=118">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -119,15 +119,15 @@
       <a class="btn btn-dark" href="craft.html">See All Craft Disciplines</a>
     </div>
     <div class="home-craft-grid">
-      <a href="kitchens.html" class="g-item photo" style="background-image:url(images/kitchen_island_tile.jpg);"><div class="g-tag">Kitchens</div></a>
-      <a href="closets.html" class="g-item photo" style="background-image:url(images/dsc_closet2_tile.jpg);"><div class="g-tag">Closets</div></a>
-      <a href="staircases.html" class="g-item photo" style="background-image:url(images/stair_floating_tile.jpg); background-position:center 65%;"><div class="g-tag">Staircases</div></a>
-      <a href="teak-flooring.html" class="g-item photo" style="background-image:url(images/dsc03352_tile.jpg);"><div class="g-tag">Teak Flooring</div></a>
-      <a href="bathrooms.html" class="g-item photo" style="background-image:url(images/dsc02812_tile.jpg);"><div class="g-tag">Bathrooms</div></a>
-      <a href="wine-rooms.html" class="g-item photo" style="background-image:url(images/inspo_wine_07_tile.jpg);"><span class="photo-tag">Design Inspiration</span><div class="g-tag">Wine Rooms</div></a>
-      <a href="cinema-room.html" class="g-item photo" style="background-image:url(images/inspo_cinema_04_tile.jpg);"><span class="photo-tag">Design Inspiration</span><div class="g-tag">Cinema Room</div></a>
-      <a href="luxury-retail.html" class="g-item photo" style="background-image:url(images/retail_interior_3_tile.jpg);"><div class="g-tag">Luxury Retail</div></a>
-      <a href="whole-home-interiors.html" class="g-item photo cir-tile" style="background-image:url(images/hero_courtyard_tile.jpg);"><div class="g-tag">Complete Interior Renovation</div></a>
+      <a data-bg="images/kitchen_island_tile.webp" href="kitchens.html" class="g-item photo"><div class="g-tag">Kitchens</div></a>
+      <a data-bg="images/dsc_closet2_tile.webp" href="closets.html" class="g-item photo"><div class="g-tag">Closets</div></a>
+      <a data-bg="images/stair_floating_tile.webp" href="staircases.html" class="g-item photo" style="background-position:center 65%;"><div class="g-tag">Staircases</div></a>
+      <a data-bg="images/dsc03352_tile.webp" href="teak-flooring.html" class="g-item photo"><div class="g-tag">Teak Flooring</div></a>
+      <a data-bg="images/dsc02812_tile.webp" href="bathrooms.html" class="g-item photo"><div class="g-tag">Bathrooms</div></a>
+      <a data-bg="images/inspo_wine_07_tile.webp" href="wine-rooms.html" class="g-item photo"><span class="photo-tag">Design Inspiration</span><div class="g-tag">Wine Rooms</div></a>
+      <a data-bg="images/inspo_cinema_04_tile.webp" href="cinema-room.html" class="g-item photo"><span class="photo-tag">Design Inspiration</span><div class="g-tag">Cinema Room</div></a>
+      <a data-bg="images/retail_interior_3_tile.webp" href="luxury-retail.html" class="g-item photo"><div class="g-tag">Luxury Retail</div></a>
+      <a data-bg="images/hero_courtyard_tile.webp" href="whole-home-interiors.html" class="g-item photo cir-tile"><div class="g-tag">Complete Interior Renovation</div></a>
     </div>
   </div>
 </section>
@@ -210,6 +210,25 @@
   if(!b) return;
   b.addEventListener('click',function(){ var o=h.classList.toggle('menu-open'); b.setAttribute('aria-expanded',o?'true':'false'); });
   h.querySelectorAll('nav.links a').forEach(function(a){ a.addEventListener('click',function(){ h.classList.remove('menu-open'); b.setAttribute('aria-expanded','false'); }); });
+})();
+</script>
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('[data-bg]'));
+  if(!els.length) return;
+  var small=window.matchMedia&&window.matchMedia('(max-width:700px)').matches;
+  function load(el){
+    var u=(small&&el.getAttribute('data-bg-m'))||el.getAttribute('data-bg');
+    if(el.hasAttribute('data-fit-blur')){ el.style.setProperty('--fit-img','url('+u+')'); el.style.setProperty('--fit-blur','url('+el.getAttribute('data-fit-blur')+')'); }
+    el.style.backgroundImage='url('+u+')';
+    el.removeAttribute('data-bg');
+  }
+  var near=window.innerHeight*1.5, rest=[];
+  els.forEach(function(el){ if(el.getBoundingClientRect().top<near) load(el); else rest.push(el); });
+  if(!rest.length) return;
+  if(!('IntersectionObserver' in window)){ rest.forEach(load); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ load(e.target); io.unobserve(e.target); } }); },{rootMargin:'900px 0px'});
+  rest.forEach(function(el){ io.observe(el); });
 })();
 </script>
 </body>

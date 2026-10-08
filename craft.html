@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon_192.png">
 <link rel="apple-touch-icon" href="images/favicon_180.png">
-<link rel="stylesheet" href="style.css?v=113">
+<link rel="stylesheet" href="style.css?v=118">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -84,17 +84,17 @@
 <section>
   <div class="wrap">
     <div class="craft-grid">
-      <a href="kitchens.html" class="craft-band craft-tile photo" style="background-image:url(images/kitchen_island.jpg);"><div class="band-label">Kitchens</div></a>
-      <a href="closets.html" class="craft-band craft-tile photo" style="background-image:url(images/dsc_closet2.jpg);"><div class="band-label">Closets</div></a>
-      <a href="staircases.html" class="craft-band craft-tile photo" style="background-image:url(images/stair_floating.jpg); background-position:center 65%;"><div class="band-label">Staircases</div></a>
-      <a href="teak-flooring.html" class="craft-band craft-tile photo" style="background-image:url(images/dsc03352.jpg);"><div class="band-label">Teak Flooring</div></a>
-      <a href="bathrooms.html" class="craft-band craft-tile photo" style="background-image:url(images/dsc02812.jpg);"><div class="band-label">Bathrooms</div></a>
-      <a href="wine-rooms.html" class="craft-band craft-tile photo" style="background-image:url(images/inspo_wine_07.jpg);"><div class="photo-tag">Design Inspiration</div><div class="band-label">Wine Rooms</div></a>
-      <a href="cinema-room.html" class="craft-band craft-tile photo" style="background-image:url(images/inspo_cinema_04.jpg);"><div class="photo-tag">Design Inspiration</div><div class="band-label">Cinema Room</div></a>
-      <a href="luxury-retail.html" class="craft-band craft-tile photo" style="background-image:url(images/retail_interior_3.jpg);"><div class="band-label">Luxury Retail</div></a>
+      <a data-bg="images/kitchen_island.webp" href="kitchens.html" class="craft-band craft-tile photo"><div class="band-label">Kitchens</div></a>
+      <a data-bg="images/dsc_closet2.webp" data-bg-m="images/dsc_closet2-m.webp" href="closets.html" class="craft-band craft-tile photo"><div class="band-label">Closets</div></a>
+      <a data-bg="images/stair_floating.webp" href="staircases.html" class="craft-band craft-tile photo" style="background-position:center 65%;"><div class="band-label">Staircases</div></a>
+      <a data-bg="images/dsc03352.webp" data-bg-m="images/dsc03352-m.webp" href="teak-flooring.html" class="craft-band craft-tile photo"><div class="band-label">Teak Flooring</div></a>
+      <a data-bg="images/dsc02812.webp" data-bg-m="images/dsc02812-m.webp" href="bathrooms.html" class="craft-band craft-tile photo"><div class="band-label">Bathrooms</div></a>
+      <a data-bg="images/inspo_wine_07.webp" href="wine-rooms.html" class="craft-band craft-tile photo"><div class="photo-tag">Design Inspiration</div><div class="band-label">Wine Rooms</div></a>
+      <a data-bg="images/inspo_cinema_04.webp" href="cinema-room.html" class="craft-band craft-tile photo"><div class="photo-tag">Design Inspiration</div><div class="band-label">Cinema Room</div></a>
+      <a data-bg="images/retail_interior_3.webp" data-bg-m="images/retail_interior_3-m.webp" href="luxury-retail.html" class="craft-band craft-tile photo"><div class="band-label">Luxury Retail</div></a>
     </div>
     <div class="craft-list" style="margin-top:16px;">
-      <a href="whole-home-interiors.html" class="craft-band photo" style="background-image:url(images/hero_courtyard.jpg);"><div class="band-label">Complete Interior Renovation</div></a>
+      <a data-bg="images/hero_courtyard.webp" data-bg-m="images/hero_courtyard-m.webp" href="whole-home-interiors.html" class="craft-band photo"><div class="band-label">Complete Interior Renovation</div></a>
     </div>
     <div style="margin-top:36px;"><a class="btn btn-primary" href="contact.html">Request a Private Consultation</a></div>
   </div>
@@ -174,6 +174,25 @@
   if(!b) return;
   b.addEventListener('click',function(){ var o=h.classList.toggle('menu-open'); b.setAttribute('aria-expanded',o?'true':'false'); });
   h.querySelectorAll('nav.links a').forEach(function(a){ a.addEventListener('click',function(){ h.classList.remove('menu-open'); b.setAttribute('aria-expanded','false'); }); });
+})();
+</script>
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('[data-bg]'));
+  if(!els.length) return;
+  var small=window.matchMedia&&window.matchMedia('(max-width:700px)').matches;
+  function load(el){
+    var u=(small&&el.getAttribute('data-bg-m'))||el.getAttribute('data-bg');
+    if(el.hasAttribute('data-fit-blur')){ el.style.setProperty('--fit-img','url('+u+')'); el.style.setProperty('--fit-blur','url('+el.getAttribute('data-fit-blur')+')'); }
+    el.style.backgroundImage='url('+u+')';
+    el.removeAttribute('data-bg');
+  }
+  var near=window.innerHeight*1.5, rest=[];
+  els.forEach(function(el){ if(el.getBoundingClientRect().top<near) load(el); else rest.push(el); });
+  if(!rest.length) return;
+  if(!('IntersectionObserver' in window)){ rest.forEach(load); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ load(e.target); io.unobserve(e.target); } }); },{rootMargin:'900px 0px'});
+  rest.forEach(function(el){ io.observe(el); });
 })();
 </script>
 </body>
