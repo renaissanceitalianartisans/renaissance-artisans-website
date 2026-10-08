@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon_192.png">
 <link rel="apple-touch-icon" href="images/favicon_180.png">
-<link rel="stylesheet" href="style.css?v=113">
+<link rel="stylesheet" href="style.css?v=114">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -85,7 +85,7 @@
   <div class="wrap contact-grid">
     <div>
       <div style="margin-top:0;">
-        <div class="info-row"><div class="label">Email</div><div>info@renaissanceitalianartisans.com</div></div>
+        <div class="info-row"><div class="label">Email</div><div><a href="mailto:info@renaissanceitalianartisans.com">info@renaissanceitalianartisans.com</a></div></div>
         <div class="info-row"><div class="label">Service Area</div><div>Miami</div></div>
         <div class="info-row"><div class="label">Hours</div><div>By appointment, Mon&ndash;Fri</div></div>
       </div>
@@ -94,6 +94,7 @@
     <form id="inquiry-form" action="https://formspree.io/f/xjykdzza" method="POST">
       <div class="field"><label for="name">Full Name</label><input id="name" name="name" type="text" placeholder="Your name" required></div>
       <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@email.com" required></div>
+      <div class="field"><label for="phone">Phone Number</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(305) 555-0123" required></div>
       <div class="field">
         <label id="project-type-label">What are you looking to do?</label>
         <div class="multiselect" id="project-type-field">
