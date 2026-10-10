@@ -60,7 +60,7 @@ header.nav.is-scrolled{
 .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); }
 .brand-mark{ width:auto; height:54px; flex:none; display:block; }
 .brand-name{ font-family:'Radley', Georgia, serif; line-height:1.08; }
-.brand-name .brand-primary{ display:block; font-family:'Radley',serif; font-size:1.45rem; font-weight:400; text-transform:uppercase; letter-spacing:0.07em; }
+.brand-name .brand-primary{ display:block; color:var(--olive-deep); font-family:'Radley',serif; font-size:1.45rem; font-weight:400; text-transform:uppercase; letter-spacing:0.07em; }
 .brand-name .brand-secondary{ display:block; font-family:'Lato',sans-serif; font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); font-weight:400; margin-top:2px; }
 .brand-name small{ display:block; font-family:'Lato', 'Helvetica Neue', Arial, sans-serif; font-size:0.58rem; letter-spacing:0.2em; color:var(--terracotta-deep); font-weight:500; text-transform:uppercase; margin-top:4px; }
 nav.links{ display:flex; gap:26px; }
