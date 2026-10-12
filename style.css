@@ -605,3 +605,28 @@ a.inspo-link:hover img{ opacity:.88; }
 
 /* A wide inspiration photo that stretches across both columns (used to finish an odd-numbered set neatly) */
 .inspo-masonry .inspo-wide{ column-span:all; }
+
+/* Complete Interior Renovation inspiration: one home per set, a main photo with two smaller ones beside it */
+.home-sets{ display:grid; gap:26px; max-width:920px; }
+.hs-track{ display:grid; grid-template-columns:1.2fr 1fr; grid-template-rows:1fr 1fr; gap:10px; aspect-ratio:2.1/1; }
+.hs-main{ grid-row:1 / span 2; }
+.hs-photo{ position:relative; overflow:hidden; display:block; }
+.hs-photo img{ display:block; width:100%; height:100%; object-fit:cover; }
+.hs-dots{ display:none; }
+.hs-more-row{ margin-top:32px; }
+@media (max-width:700px){
+  .home-sets{ gap:30px; }
+  .hs-track{ display:flex; aspect-ratio:auto; gap:0; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .hs-track::-webkit-scrollbar{ display:none; }
+  .hs-photo{ flex:0 0 100%; aspect-ratio:3/2; scroll-snap-align:start; }
+  .hs-dots{ display:flex; justify-content:center; gap:8px; margin-top:12px; }
+  .hs-dots span{ width:7px; height:7px; border-radius:50%; background:var(--line); transition:background .2s ease; }
+  .hs-dots span.on{ background:var(--ink-soft); }
+}
+
+/* Mobile: line the inspiration photos up in even rows (bathrooms page) */
+@media (max-width:560px){
+  .inspo-masonry.inspo-even{ columns:auto; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .inspo-even .inspo-item{ margin-bottom:0; aspect-ratio:4/5; overflow:hidden; }
+  .inspo-even .inspo-item img{ height:100%; object-fit:cover; }
+}
