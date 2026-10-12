@@ -27,6 +27,7 @@ body{
 h1,h2,h3,.display{
   font-family:'Radley', Georgia, serif;
   font-weight:400;
+  line-height:1.15;
   letter-spacing:0.002em;
   text-wrap:balance;
   margin:0;
@@ -59,7 +60,7 @@ header.nav.is-scrolled{
 .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink); }
 .brand-mark{ width:auto; height:54px; flex:none; display:block; }
 .brand-name{ font-family:'Radley', Georgia, serif; line-height:1.08; }
-.brand-name .brand-primary{ display:block; font-family:'Radley',serif; font-size:1.45rem; font-weight:400; text-transform:uppercase; letter-spacing:0.07em; }
+.brand-name .brand-primary{ display:block; color:var(--olive-deep); font-family:'Radley',serif; font-size:1.45rem; font-weight:400; text-transform:uppercase; letter-spacing:0.07em; }
 .brand-name .brand-secondary{ display:block; font-family:'Lato',sans-serif; font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-soft); font-weight:400; margin-top:2px; }
 .brand-name small{ display:block; font-family:'Lato', 'Helvetica Neue', Arial, sans-serif; font-size:0.58rem; letter-spacing:0.2em; color:var(--terracotta-deep); font-weight:500; text-transform:uppercase; margin-top:4px; }
 nav.links{ display:flex; gap:26px; }
@@ -454,6 +455,7 @@ footer{ background:var(--ink); color:rgba(239,230,211,0.75); padding-block:40px;
 .page-intro{ padding-block:56px 64px; border-bottom:1px solid var(--line); }
 .page-intro .label{ color:var(--terracotta-deep); }
 .page-intro h1{ font-size:clamp(2.3rem,4.8vw,3.5rem); margin-top:10px; }
+h3{ line-height:1.3; }
 .opening-line{ font-family:'Radley', Georgia, serif; font-style:italic; font-size:clamp(1.35rem,2.6vw,1.8rem); line-height:1.35; color:var(--terracotta-deep); margin:14px 0 0; max-width:36ch; }
 .page-intro p.intro-text{ margin-top:18px; max-width:60ch; font-size:1.1rem; color:var(--ink-soft); }
 .page-intro .btn{ margin-top:28px; }
@@ -603,3 +605,28 @@ a.inspo-link:hover img{ opacity:.88; }
 
 /* A wide inspiration photo that stretches across both columns (used to finish an odd-numbered set neatly) */
 .inspo-masonry .inspo-wide{ column-span:all; }
+
+/* Complete Interior Renovation inspiration: one home per set, a main photo with two smaller ones beside it */
+.home-sets{ display:grid; gap:26px; max-width:920px; }
+.hs-track{ display:grid; grid-template-columns:1.2fr 1fr; grid-template-rows:1fr 1fr; gap:10px; aspect-ratio:2.1/1; }
+.hs-main{ grid-row:1 / span 2; }
+.hs-photo{ position:relative; overflow:hidden; display:block; }
+.hs-photo img{ display:block; width:100%; height:100%; object-fit:cover; }
+.hs-dots{ display:none; }
+.hs-more-row{ margin-top:32px; }
+@media (max-width:700px){
+  .home-sets{ gap:30px; }
+  .hs-track{ display:flex; aspect-ratio:auto; gap:0; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .hs-track::-webkit-scrollbar{ display:none; }
+  .hs-photo{ flex:0 0 100%; aspect-ratio:3/2; scroll-snap-align:start; }
+  .hs-dots{ display:flex; justify-content:center; gap:8px; margin-top:12px; }
+  .hs-dots span{ width:7px; height:7px; border-radius:50%; background:var(--line); transition:background .2s ease; }
+  .hs-dots span.on{ background:var(--ink-soft); }
+}
+
+/* Mobile: line the inspiration photos up in even rows (bathrooms page) */
+@media (max-width:560px){
+  .inspo-masonry.inspo-even{ columns:auto; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .inspo-even .inspo-item{ margin-bottom:0; aspect-ratio:4/5; overflow:hidden; }
+  .inspo-even .inspo-item img{ height:100%; object-fit:cover; }
+}
