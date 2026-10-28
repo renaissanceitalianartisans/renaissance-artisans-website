@@ -640,3 +640,15 @@ nav.links a.lang-switch::before{ content:""; position:absolute; left:-14px; top:
 }
 @media (max-width:640px){ header.nav.menu-open nav.links a.lang-switch{ margin-inline:18px; } }
 @media (max-width:1180px){ nav.links{ gap:20px; } }
+
+/* Closets: smaller inspiration photos in even tiles, grouped by closet type */
+.inspo-group-title{ font-size:1.25rem; margin:0 0 16px; }
+.inspo-tiles + .inspo-group-title{ margin-top:44px; }
+.inspo-tiles{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.inspo-tiles-3{ grid-template-columns:repeat(3,1fr); max-width:calc(75% - 3px); }
+.inspo-tiles .inspo-item{ margin:0; aspect-ratio:4/5; overflow:hidden; }
+.inspo-tiles .inspo-item img{ width:100%; height:100%; object-fit:cover; }
+@media (max-width:700px){
+  .inspo-tiles, .inspo-tiles-3{ grid-template-columns:1fr 1fr; gap:10px; max-width:none; }
+  .inspo-tiles + .inspo-group-title{ margin-top:32px; }
+}
