@@ -214,7 +214,7 @@
   var items=[].slice.call(document.querySelectorAll('.detail-item'));
   var lb=document.getElementById('lightbox'); if(!lb||!items.length) return;
   var img=lb.querySelector('.lb-img'), count=lb.querySelector('.lb-count'), cur=0, lastFocus=null;
-  function show(i){ cur=(i+items.length)%items.length; img.src=items[cur].getAttribute('href'); img.alt='Bathroom detail photo '+(cur+1)+' of '+items.length; count.textContent=(cur+1)+' / '+items.length; }
+  function show(i){ cur=(i+items.length)%items.length; img.src=items[cur].getAttribute('href'); img.alt='Detalle de los baños, foto '+(cur+1)+' de '+items.length; count.textContent=(cur+1)+' / '+items.length; }
   function open(i){ lastFocus=document.activeElement; show(i); lb.hidden=false; document.body.style.overflow='hidden'; lb.querySelector('.lb-close').focus(); }
   function close(){ lb.hidden=true; img.removeAttribute('src'); document.body.style.overflow=''; if(lastFocus) lastFocus.focus(); }
   items.forEach(function(a,i){ a.addEventListener('click',function(e){ e.preventDefault(); open(i); }); });
