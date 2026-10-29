@@ -630,3 +630,39 @@ a.inspo-link:hover img{ opacity:.88; }
   .inspo-even .inspo-item{ margin-bottom:0; aspect-ratio:4/5; overflow:hidden; }
   .inspo-even .inspo-item img{ height:100%; object-fit:cover; }
 }
+
+/* ===== Mobile conversion pass (Instagram ad visitors) ===== */
+.m-cta-bar{ display:none; }
+@media (max-width:700px){
+  .m-cta-bar{
+    display:flex; position:fixed; left:0; right:0; bottom:0; z-index:60;
+    gap:8px; padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(239,230,211,.97); border-top:1px solid rgba(44,36,27,.12);
+    box-shadow:0 -6px 18px rgba(44,36,27,.08);
+    transition:transform .2s ease;
+  }
+  .m-cta-bar.is-hidden{ transform:translateY(110%); }
+  .m-cta-bar a{
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    min-height:46px; padding:0 12px; border-radius:2px; text-decoration:none;
+    font-family:'Lato','Helvetica Neue',Arial,sans-serif; font-size:.78rem; font-weight:700;
+    letter-spacing:.08em; text-transform:uppercase; white-space:nowrap;
+    color:var(--ink, #2C241B); border:1px solid rgba(44,36,27,.28); background:transparent;
+  }
+  .m-cta-bar a.m-cta-main{ flex:1; color:#fff; background:#520001; border-color:#520001; }
+  body{ padding-bottom:calc(68px + env(safe-area-inset-bottom)); }
+  /* the bar replaces the header's consultation button on phones */
+  header.nav .nav-cta{ display:none; }
+}
+@media (max-width:360px){ .m-cta-bar a{ padding:0 9px; font-size:.72rem; } .m-cta-bar a svg{ display:none; } }
+
+/* Shorter hero on phones so the photo shows */
+.hero-photo .lede-short{ display:none; }
+@media (max-width:640px){
+  .hero-photo h1{ font-size:2.05rem; }
+  .hero-photo p.lede-long{ display:none; }
+  .hero-photo p.lede-short{ display:block; }
+}
+
+/* Contact page: form first on phones */
+@media (max-width:860px){ .contact-grid > form{ order:-1; } }

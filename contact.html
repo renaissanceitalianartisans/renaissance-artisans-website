@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon_192.png">
 <link rel="apple-touch-icon" href="images/favicon_180.png">
-<link rel="stylesheet" href="style.css?v=121">
+<link rel="stylesheet" href="style.css?v=122">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -94,6 +94,7 @@
       <p class="form-note" style="margin-top:20px;">Most of our projects bring several rooms together, from a kitchen and closets to a complete interior renovation, and we take on only a few at a time.</p>
     </div>
     <form id="inquiry-form" action="https://formspree.io/f/xjykdzza" method="POST">
+      <input type="hidden" name="lead-source" id="lead-source" value="">
       <div class="field"><label for="name">Full Name</label><input id="name" name="name" type="text" placeholder="Your name" required></div>
       <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@email.com" required></div>
       <div class="field"><label for="phone">Phone Number</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(305) 555-0123" required></div>
@@ -311,6 +312,11 @@
 </script>
 
 </main>
+<nav class="m-cta-bar" aria-label="Contact Renaissance">
+  <a href="tel:+13054141809"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
+  <a href="sms:+13054141809"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+  <a class="m-cta-main" href="#inquiry-form">Consultation</a>
+</nav>
 <footer>
   <div class="wrap foot-row">
     <div>&copy; 2026 Renaissance Italian Architectural Artisans. All rights reserved.</div>
@@ -385,6 +391,35 @@
   if(!b) return;
   b.addEventListener('click',function(){ var o=h.classList.toggle('menu-open'); b.setAttribute('aria-expanded',o?'true':'false'); });
   h.querySelectorAll('nav.links a').forEach(function(a){ a.addEventListener('click',function(){ h.classList.remove('menu-open'); b.setAttribute('aria-expanded','false'); }); });
+})();
+</script>
+<script>
+(function(){
+  /* Remembers where a visitor came from (Instagram ad, other link, direct) for this visit,
+     and adds it to the inquiry form so each Formspree email shows the lead source. */
+  var KEY='rsLeadSource', src=null;
+  try{ src=sessionStorage.getItem(KEY); }catch(e){}
+  if(!src){
+    var q=new URLSearchParams(location.search), parts=[];
+    ['utm_source','utm_medium','utm_campaign','utm_content'].forEach(function(k){ if(q.get(k)) parts.push(k.replace('utm_','')+': '+q.get(k)); });
+    var ua=navigator.userAgent||'', ref=document.referrer||'';
+    if(parts.length) src=parts.join(', ');
+    else if(/Instagram/i.test(ua)) src='Instagram (opened inside the Instagram app)';
+    else if(q.get('fbclid')||/instagram\.com|facebook\.com/i.test(ref)) src='Instagram or Facebook';
+    else if(/google\./i.test(ref)) src='Google search';
+    else if(ref && ref.indexOf(location.hostname)<0) src='Link from '+ref.split('/')[2];
+    else src='Typed the address or unknown';
+    src+=' | first page: '+(location.pathname||'/');
+    try{ sessionStorage.setItem(KEY,src); }catch(e){}
+  }
+  var f=document.getElementById('lead-source');
+  if(f) f.value=src;
+  /* Hide the phone call/text bar while someone is typing in a form field */
+  var bar=document.querySelector('.m-cta-bar');
+  if(bar){
+    document.addEventListener('focusin',function(e){ if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) bar.classList.add('is-hidden'); });
+    document.addEventListener('focusout',function(){ bar.classList.remove('is-hidden'); });
+  }
 })();
 </script>
 </body>
